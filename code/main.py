@@ -86,8 +86,9 @@ src_counter = 0
 log_file_name = os.path.join(experiment_log_dir, f"logs_{datetime.now().strftime('%d_%m_%Y_%H_%M_%S')}.log")
 # 'experiments_logs/Exp1/run1/train_linear_seed_0/logs_14_04_2022_15_13_12.log'
 logger = _logger(log_file_name)
+logger.debug(f"We are using {device}")
 logger.debug("=" * 45)
-logger.debug(f'Pre-training Dataset: {sourcedata}')
+logger.debug(f'Pre-training Dataset: {sourcedata} (subset={subset})')
 logger.debug(f'Target (fine-tuning) Dataset: {targetdata}')
 logger.debug(f'Method:  {method}')
 logger.debug(f'Mode:    {training_mode}')
