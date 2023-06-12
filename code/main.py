@@ -7,7 +7,7 @@ import argparse
 from utils import _logger, set_requires_grad
 # from models.TC import TC
 from utils import _calc_metrics, copy_Files
-# from model import * # base_Model, base_Model_F, target_classifier
+from model import * # base_Model, base_Model_F, target_classifier
 
 from dataloader import data_generator
 from trainer import Trainer, model_finetune, model_test #model_evaluate
@@ -94,8 +94,8 @@ logger.debug(f'Mode:    {training_mode}')
 logger.debug("=" * 45)
 
 # Load datasets
-sourcedata_path = f"../datasets/{sourcedata}"  # './data/Epilepsy'
-targetdata_path = f"../datasets/{targetdata}"
+sourcedata_path = f"datasets/{sourcedata}"  # './data/Epilepsy'
+targetdata_path = f"datasets/{targetdata}"
 # for self-supervised, the data are augmented here. Only self-supervised learning need augmentation
 train_dl, valid_dl, test_dl = data_generator(sourcedata_path, targetdata_path, configs, training_mode, subset = subset)
 logger.debug("Data loaded ...")
