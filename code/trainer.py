@@ -181,8 +181,8 @@ def model_pretrain(model, temporal_contr_model, model_optimizer, temp_cont_optim
         l_1, l_2, l_3 = nt_xent_criterion(z_t, z_f_aug), nt_xent_criterion(z_t_aug, z_f), nt_xent_criterion(z_t_aug, z_f_aug)
         loss_c = (1+ l_TF -l_1) + (1+ l_TF -l_2) + (1+ l_TF -l_3)
 
-        lam = 0.2
-        loss = lam *(loss_t + loss_f) + (1- lam)*loss_c
+        lam = 0.5
+        loss = lam*(loss_t + loss_f) + (1-lam)*loss_c
 
         total_loss.append(loss.item())
         loss.backward()
@@ -246,8 +246,8 @@ def model_finetune(model, temporal_contr_model, val_dl, config, device, training
         fea_concat_flat = fea_concat.reshape(fea_concat.shape[0], -1)
         loss_p = criterion(predictions, labels) # predictor loss, actually, here is training loss
 
-        lam = 0.2
-        loss =  loss_p + (1-lam)*loss_c + lam*(loss_t + loss_f )
+        lam = 0.5
+        loss =  loss_p + (1-lam)*loss_c + lam*(loss_t + loss_f)
 
         acc_bs = labels.eq(predictions.detach().argmax(dim=1)).float().mean()
         onehot_label = F.one_hot(labels)

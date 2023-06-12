@@ -6,5 +6,6 @@ datasets
 *.log
 *.pt
 *.zip
+/experiments_logs/
 hpc/runs/**
 **_env
