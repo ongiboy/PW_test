@@ -41,9 +41,11 @@ parser.add_argument('--device', default='cuda', type=str,
                     help='cpu or cuda')
 parser.add_argument('--home_path', default=home_dir, type=str,
                     help='Project home directory')
+parser.add_argument('--subset', default="False", type=str,
+                    help='True or False')
 # args = parser.parse_args()
 args, unknown = parser.parse_known_args()
-
+subset = args.subset == "True"
 
 device = torch.device(args.device)
 # experiment_description = args.experiment_description
@@ -95,7 +97,6 @@ logger.debug("=" * 45)
 sourcedata_path = f"../datasets/{sourcedata}"  # './data/Epilepsy'
 targetdata_path = f"../datasets/{targetdata}"
 # for self-supervised, the data are augmented here. Only self-supervised learning need augmentation
-subset = True # if subset= true, use a subset for debugging.
 train_dl, valid_dl, test_dl = data_generator(sourcedata_path, targetdata_path, configs, training_mode, subset = subset)
 logger.debug("Data loaded ...")
 
