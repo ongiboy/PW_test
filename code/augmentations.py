@@ -33,10 +33,10 @@ def DataTransform_TD(sample, config):
     aug_3 = permutation(sample, max_segments=config.augmentation.max_seg)
 
     li = np.random.randint(0, 4, size=[sample.shape[0]]) # there are two augmentations in Frequency domain
-    li_onehot = one_hot_encoding(li)
-    aug_1[1-li_onehot[:, 0]] = 0 # the rows are not selected are set as zero.
-    aug_2[1 - li_onehot[:, 1]] = 0
-    aug_3[1 - li_onehot[:, 2]] = 0
+    li_onehot = one_hot_encoding(li) == 1
+    aug_1[~li_onehot[:, 0]] = 0 # the rows are not selected are set as zero.
+    aug_2[~li_onehot[:, 1]] = 0
+    aug_3[~li_onehot[:, 2]] = 0
     # aug_4[1 - li_onehot[:, 3]] = 0
     aug_T = aug_1 + aug_2 + aug_3 #+aug_4
     return aug_T
@@ -48,9 +48,9 @@ def DataTransform_FD(sample, config):
     aug_2 = add_frequency(sample, 0.1)
     # generate random sequence
     li = np.random.randint(0, 2, size=[sample.shape[0]]) # there are two augmentations in Frequency domain
-    li_onehot = one_hot_encoding(li)
-    aug_1[1-li_onehot[:, 0]] = 0 # the rows are not selected are set as zero.
-    aug_2[1 - li_onehot[:, 1]] = 0
+    li_onehot = one_hot_encoding(li) == 1
+    aug_1[~li_onehot[:, 0]] = 0 # the rows are not selected are set as zero.
+    aug_2[~li_onehot[:, 1]] = 0
     aug_F = aug_1 + aug_2
     return aug_F
 
